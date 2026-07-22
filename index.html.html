@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chalifa Chairunnisa — Portofolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1C2140;
+    --ink-2:#272C4D;
+    --paper:#EFEADF;
+    --paper-2:#E4DDCC;
+    --gold:#C9A24B;
+    --coral:#D6486B;
+    --teal:#2F6F62;
+    --text-dark:#33323A;
+    --text-light:#EFEADF;
+    --line: rgba(239,234,223,0.18);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--ink);
+    color:var(--text-light);
+    font-family:'Inter',sans-serif;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--coral); color:var(--text-light);}
+  a{color:inherit; text-decoration:none;}
+
+  .mono{font-family:'JetBrains Mono',monospace; letter-spacing:0.03em;}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:22px 6vw;
+    mix-blend-mode:difference;
+  }
+  .nav-name{font-family:'Fraunces',serif; font-weight:500; font-size:1rem;}
+  .nav-links{display:flex; gap:28px; font-size:0.8rem;}
+  .nav-links a{opacity:0.75; transition:opacity .25s;}
+  .nav-links a:hover{opacity:1;}
+  .nav-toggle{display:none;}
+
+  /* ---------- THREAD SVG (signature) ---------- */
+  #thread-svg{
+    position:absolute; top:0; left:0; width:100%; height:100%;
+    pointer-events:none; z-index:0;
+  }
+  .thread-path{
+    fill:none; stroke:var(--gold); stroke-width:1.4; opacity:0.55;
+    stroke-dasharray:6 6;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex; flex-direction:column; justify-content:center;
+    padding:0 6vw;
+    isolation:isolate;
+  }
+  .hero-eyebrow{
+    font-size:0.78rem; opacity:0.6; margin-bottom:22px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .hero-eyebrow::before{
+    content:''; width:26px; height:1px; background:var(--gold);
+  }
+  .hero h1{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    font-size:clamp(2.6rem, 7vw, 6.2rem);
+    line-height:0.98;
+    max-width:16ch;
+  }
+  .hero h1 em{
+    font-style:italic; font-weight:300; color:var(--gold);
+  }
+  .hero-sub{
+    margin-top:28px; max-width:46ch;
+    font-size:1.05rem; line-height:1.6; opacity:0.8;
+    font-weight:400;
+  }
+  .hero-cta{
+    margin-top:44px; display:flex; gap:18px; flex-wrap:wrap; align-items:center;
+  }
+  .btn{
+    padding:13px 26px; border-radius:100px; font-size:0.85rem; font-weight:500;
+    border:1px solid var(--gold); transition:all .3s ease;
+    display:inline-flex; align-items:center; gap:8px;
+  }
+  .btn.solid{background:var(--gold); color:var(--ink);}
+  .btn.solid:hover{background:var(--coral); border-color:var(--coral); color:var(--text-light);}
+  .btn.ghost{opacity:0.85;}
+  .btn.ghost:hover{opacity:1; border-color:var(--coral); color:var(--coral);}
+
+  .scroll-cue{
+    position:absolute; bottom:38px; left:6vw; font-size:0.72rem; opacity:0.5;
+    display:flex; align-items:center; gap:10px;
+  }
+  .scroll-cue span{
+    width:1px; height:34px; background:linear-gradient(var(--gold), transparent);
+    display:block;
+  }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{position:relative; padding:120px 6vw; z-index:1;}
+  .section-head{margin-bottom:64px;}
+  .section-num{font-size:0.78rem; opacity:0.5; margin-bottom:10px;}
+  .section-title{
+    font-family:'Fraunces',serif; font-weight:500;
+    font-size:clamp(1.8rem, 4vw, 3rem);
+  }
+  .section-title em{font-style:italic; color:var(--gold); font-weight:300;}
+
+  /* ---------- ABOUT ---------- */
+  #about{background:var(--paper); color:var(--text-dark);}
+  .about-grid{
+    display:grid; grid-template-columns:1.1fr 0.9fr; gap:70px; align-items:start;
+  }
+  .about-text p{font-size:1.08rem; line-height:1.75; margin-bottom:20px; max-width:52ch;}
+  .about-text strong{color:var(--coral);}
+  .fact-list{display:flex; flex-direction:column; gap:0;}
+  .fact-row{
+    display:flex; justify-content:space-between; padding:18px 0;
+    border-top:1px solid rgba(51,50,58,0.15); font-size:0.92rem;
+  }
+  .fact-row:last-child{border-bottom:1px solid rgba(51,50,58,0.15);}
+  .fact-label{opacity:0.55;}
+  .fact-value{font-weight:600; text-align:right;}
+
+  /* ---------- PROJECTS ---------- */
+  #projects{background:var(--ink);}
+  .proj-list{display:flex; flex-direction:column; gap:2px;}
+  .proj{
+    display:grid; grid-template-columns:0.9fr 2fr 1fr; gap:32px;
+    padding:38px 0; border-top:1px solid var(--line);
+    align-items:start; transition:padding-left .35s ease;
+    cursor:default;
+  }
+  .proj:last-child{border-bottom:1px solid var(--line);}
+  .proj:hover{padding-left:16px; background:rgba(201,162,75,0.05);}
+  .proj-tag{
+    font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:var(--gold);
+    text-transform:uppercase; letter-spacing:0.08em; padding-top:6px;
+  }
+  .proj-body h3{
+    font-family:'Fraunces',serif; font-weight:500; font-size:1.5rem; margin-bottom:10px;
+  }
+  .proj-body p{font-size:0.94rem; line-height:1.65; opacity:0.75; max-width:56ch;}
+  .proj-links{display:flex; gap:14px; margin-top:14px;}
+  .proj-links a{
+    font-size:0.78rem; border-bottom:1px solid var(--gold); padding-bottom:2px;
+    color:var(--gold); transition:color .25s, border-color .25s;
+  }
+  .proj-links a:hover{color:var(--coral); border-color:var(--coral);}
+  .proj-stack{
+    display:flex; flex-wrap:wrap; gap:8px; align-content:flex-start; justify-content:flex-end;
+    padding-top:6px;
+  }
+  .chip{
+    font-size:0.7rem; padding:5px 12px; border-radius:100px;
+    border:1px solid var(--line); opacity:0.75;
+  }
+
+  /* ---------- EXPERIENCE / TIMELINE ---------- */
+  #experience{background:var(--ink-2);}
+  .timeline{position:relative; padding-left:34px;}
+  .timeline::before{
+    content:''; position:absolute; left:6px; top:6px; bottom:6px; width:1px;
+    background:linear-gradient(var(--gold), var(--teal), var(--coral));
+    opacity:0.5;
+  }
+  .t-item{position:relative; padding-bottom:52px;}
+  .t-item:last-child{padding-bottom:0;}
+  .t-dot{
+    position:absolute; left:-34px; top:4px; width:13px; height:13px; border-radius:50%;
+    background:var(--ink-2); border:2px solid var(--gold);
+  }
+  .t-year{font-size:0.75rem; color:var(--gold); font-family:'JetBrains Mono',monospace; margin-bottom:8px;}
+  .t-role{font-family:'Fraunces',serif; font-size:1.3rem; font-weight:500; margin-bottom:4px;}
+  .t-org{font-size:0.85rem; opacity:0.6; margin-bottom:14px;}
+  .t-desc{font-size:0.92rem; line-height:1.7; opacity:0.78; max-width:60ch;}
+
+  /* ---------- SKILLS ---------- */
+  #skills{background:var(--paper); color:var(--text-dark);}
+  .skills-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:50px;}
+  .skill-col h4{
+    font-family:'JetBrains Mono',monospace; font-size:0.75rem; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--coral); margin-bottom:20px;
+  }
+  .tag-cloud{display:flex; flex-wrap:wrap; gap:10px;}
+  .tag{
+    padding:8px 16px; border-radius:8px; background:rgba(51,50,58,0.06);
+    font-size:0.85rem; border:1px solid rgba(51,50,58,0.12);
+  }
+
+  /* ---------- EDUCATION ---------- */
+  #education{background:var(--ink);}
+  .edu-card{
+    border:1px solid var(--line); border-radius:18px; padding:44px;
+    display:grid; grid-template-columns:1fr auto; gap:30px; align-items:center;
+  }
+  .edu-card h3{font-family:'Fraunces',serif; font-size:1.6rem; margin-bottom:8px;}
+  .edu-card p{opacity:0.7; font-size:0.92rem; line-height:1.6; max-width:60ch;}
+  .edu-badge{
+    font-family:'JetBrains Mono',monospace; font-size:0.78rem; color:var(--gold);
+    border:1px solid var(--gold); padding:10px 18px; border-radius:100px; white-space:nowrap;
+  }
+
+  /* ---------- CONTACT ---------- */
+  #contact{
+    background:var(--ink); text-align:center; padding-bottom:80px;
+  }
+  #contact .section-head{margin-bottom:40px;}
+  .contact-big{
+    font-family:'Fraunces',serif; font-size:clamp(1.8rem,5vw,3.6rem); font-weight:500;
+    max-width:20ch; margin:0 auto 40px;
+  }
+  .contact-big em{font-style:italic; color:var(--gold);}
+  .contact-links{
+    display:flex; justify-content:center; gap:30px; flex-wrap:wrap; font-size:0.95rem;
+  }
+  .contact-links a{
+    border-bottom:1px solid transparent; padding-bottom:4px; transition:border-color .25s, color .25s;
+    opacity:0.85;
+  }
+  .contact-links a:hover{border-color:var(--gold); color:var(--gold); opacity:1;}
+  footer{
+    text-align:center; padding:34px 6vw; font-size:0.72rem; opacity:0.4;
+    border-top:1px solid var(--line);
+  }
+
+  /* ---------- REVEAL ---------- */
+  .reveal{opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .reveal{opacity:1; transform:none; transition:none;}
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:860px){
+    .about-grid{grid-template-columns:1fr; gap:40px;}
+    .proj{grid-template-columns:1fr;}
+    .proj-stack{justify-content:flex-start;}
+    .skills-grid{grid-template-columns:1fr; gap:36px;}
+    .edu-card{grid-template-columns:1fr; text-align:left;}
+    .nav-links{display:none;}
+  }
+
+  :focus-visible{outline:2px solid var(--coral); outline-offset:3px;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-name mono">CHALIFA CHAIRUNNISA</div>
+  <div class="nav-links">
+    <a href="#about">Tentang</a>
+    <a href="#projects">Karya</a>
+    <a href="#experience">Perjalanan</a>
+    <a href="#skills">Keahlian</a>
+    <a href="#contact">Kontak</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <svg id="thread-svg" viewBox="0 0 1000 800" preserveAspectRatio="none">
+    <path class="thread-path" d="M -50 650 C 200 550, 300 750, 550 600 S 900 350, 1050 420" />
+    <path class="thread-path" d="M -50 200 C 250 120, 350 300, 600 180 S 850 60, 1050 140" style="opacity:0.3" />
+  </svg>
+  <div class="hero-eyebrow mono">SISTEM & TEKNOLOGI INFORMASI — CAKRAWALA UNIVERSITY</div>
+  <h1>Merancang alur,<br><em>dari layar ke panggung.</em></h1>
+  <p class="hero-sub">
+    Saya merancang jalur pengalaman pengguna, menyusun struktur data, dan memimpin tim —
+    tiga hal yang sama-sama soal satu hal: membuat sesuatu yang rumit terasa mengalir.
+  </p>
+  <div class="hero-cta">
+    <a href="#projects" class="btn solid">Lihat karya</a>
+    <a href="#contact" class="btn ghost">Hubungi saya</a>
+  </div>
+  <div class="scroll-cue mono"><span></span>SCROLL</div>
+</header>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-head reveal">
+    <div class="section-num mono">01 — Tentang</div>
+    <h2 class="section-title">Antara <em>koreografi</em> dan <em>kode</em>.</h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>
+        Saya mahasiswa semester 4 program studi Sistem dan Teknologi Informasi di Cakrawala
+        University, dengan fokus di <strong>UI/UX design</strong> dan perancangan <strong>database</strong>.
+        Di luar kelas, saya memimpin <strong>Arunika Motion Dance Club</strong> sebagai Head of
+        Organization — mengelola program tari tradisional dan modern, koordinasi tim, hingga
+        dokumentasi pertunjukan.
+      </p>
+      <p>
+        Pengalaman memimpin latihan tari dan menyusun formasi ternyata mengajarkan hal yang sama
+        dengan merancang user flow: keduanya soal urutan, ritme, dan bagaimana membuat sesuatu yang
+        kompleks terasa alami untuk diikuti. Prinsip itu yang saya bawa ke setiap proyek — dari
+        wireframe di Figma sampai skema ERD di DBeaver.
+      </p>
+    </div>
+    <div class="fact-list reveal">
+      <div class="fact-row"><span class="fact-label">Lokasi</span><span class="fact-value">Jakarta Selatan, Indonesia</span></div>
+      <div class="fact-row"><span class="fact-label">Fokus</span><span class="fact-value">UI/UX & Database Design</span></div>
+      <div class="fact-row"><span class="fact-label">Peran organisasi</span><span class="fact-value">Head of Organization</span></div>
+      <div class="fact-row"><span class="fact-label">Tools favorit</span><span class="fact-value">Figma · Tableau · DBeaver</span></div>
+      <div class="fact-row"><span class="fact-label">Sedang dibangun</span><span class="fact-value">SmartHire — AI Interview Coach</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-head reveal">
+    <div class="section-num mono">02 — Karya</div>
+    <h2 class="section-title">Proyek yang saya <em>bangun</em>.</h2>
+  </div>
+  <div class="proj-list">
+
+    <div class="proj reveal">
+      <div class="proj-tag">UI/UX CASE STUDY</div>
+      <div class="proj-body">
+        <h3>TIKETKITA — Aplikasi Pemesanan Tiket Kereta</h3>
+        <p>
+          Riset pengguna untuk memetakan kebutuhan dan pain point saat memesan tiket, dilanjutkan
+          dengan user journey, information architecture, dan user flow untuk alur login, pemilihan
+          gerbong, hingga kursi. Dari sketsa low-fidelity berkembang menjadi prototipe high-fidelity
+          interaktif di Figma dengan sistem warna, tipografi, dan spacing yang konsisten.
+        </p>
+        <div class="proj-links"><a href="#">Lihat prototipe Figma</a></div>
+      </div>
+      <div class="proj-stack">
+        <span class="chip">Figma</span><span class="chip">User Research</span><span class="chip">Wireframing</span>
+      </div>
+    </div>
+
+    <div class="proj reveal">
+      <div class="proj-tag">AI × MOBILE — ONGOING</div>
+      <div class="proj-body">
+        <h3>SmartHire — AI Interview Coach</h3>
+        <p>
+          Aplikasi mobile untuk berlatih wawancara kerja dengan umpan balik dari AI. Prompt
+          engineering dirancang dengan guardrail agar AI hanya merespons topik seputar wawancara,
+          menghasilkan output terstruktur JSON berisi skor komunikasi, skor relevansi, dan feedback.
+          Riwayat sesi latihan disimpan lokal via Hive, dilengkapi rekaman kamera untuk latihan
+          mandiri, dengan dokumentasi risiko AI mengacu pada NIST AI RMF.
+        </p>
+        <div class="proj-links"><a href="#">Dokumentasi proyek</a></div>
+      </div>
+      <div class="proj-stack">
+        <span class="chip">Prompt Engineering</span><span class="chip">Hive</span><span class="chip">NIST AI RMF</span>
+      </div>
+    </div>
+
+    <div class="proj reveal">
+      <div class="proj-tag">DATA VISUALIZATION</div>
+      <div class="proj-body">
+        <h3>Global Climate Extreme Weather Dashboard</h3>
+        <p>
+          Menganalisis dataset iklim global dan cuaca ekstrem untuk mengidentifikasi tren utama,
+          lalu menuangkannya ke dashboard interaktif di Tableau agar pola-pola tersebut mudah
+          dibaca dan dieksplorasi.
+        </p>
+        <div class="proj-links"><a href="https://public.tableau.com/views/GlobalClimateExtremeWeather2026" target="_blank" rel="noopener">Buka dashboard Tableau ↗</a></div>
+      </div>
+      <div class="proj-stack">
+        <span class="chip">Tableau</span><span class="chip">Data Analysis</span>
+      </div>
+    </div>
+
+    <div class="proj reveal">
+      <div class="proj-tag">FULL-STACK & DATABASE</div>
+      <div class="proj-body">
+        <h3>LMS Website untuk AYS</h3>
+        <p>
+          Merancang UI/UX, struktur database, dan backend sebuah Learning Management System —
+          dari desain antarmuka, koneksi backend ke database, hingga integrasi dengan frontend.
+        </p>
+      </div>
+      <div class="proj-stack">
+        <span class="chip">Backend</span><span class="chip">Database Design</span><span class="chip">UI/UX</span>
+      </div>
+    </div>
+
+    <div class="proj reveal">
+      <div class="proj-tag">DATABASE PROJECTS</div>
+      <div class="proj-body">
+        <h3>CharnfashionGlow.AI, Worker Database & ERD Design</h3>
+        <p>
+          Tiga proyek database: website rekomendasi outfit & makeup berbasis AI, sistem database
+          manajemen karyawan sebagai proyek akhir, serta perancangan ERD dan implementasi SQL
+          sebagai proyek tengah semester.
+        </p>
+      </div>
+      <div class="proj-stack">
+        <span class="chip">SQL</span><span class="chip">ERD</span><span class="chip">DBeaver</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-head reveal">
+    <div class="section-num mono">03 — Perjalanan</div>
+    <h2 class="section-title">Memimpin di luar <em>kelas</em>.</h2>
+  </div>
+  <div class="timeline">
+
+    <div class="t-item reveal">
+      <div class="t-dot"></div>
+      <div class="t-year">2025 — SEKARANG</div>
+      <div class="t-role">Head of Organization</div>
+      <div class="t-org">Arunika Motion Dance Club, Cakrawala University</div>
+      <div class="t-desc">Memimpin program tari tradisional dan modern, mengoordinasikan tim internal untuk mendukung acara, menyusun jadwal latihan, dan membangun kolaborasi dengan klub mahasiswa lain.</div>
+    </div>
+
+    <div class="t-item reveal">
+      <div class="t-dot"></div>
+      <div class="t-year">2025 — SEKARANG</div>
+      <div class="t-role">Moderator</div>
+      <div class="t-org">Cakrawala Mini Degree Program</div>
+      <div class="t-desc">Memandu sesi akademik, mendukung pembicara selama presentasi, serta mengelola alur tanya-jawab dan sesi diskusi.</div>
+    </div>
+
+    <div class="t-item reveal">
+      <div class="t-dot"></div>
+      <div class="t-year">2025</div>
+      <div class="t-role">Head of Registration Division</div>
+      <div class="t-org">Student Orientation Program</div>
+      <div class="t-desc">Memimpin tim registrasi peserta, menjaga akurasi data seluruh peserta terdaftar, dan berkoordinasi dengan divisi acara untuk update harian.</div>
+    </div>
+
+    <div class="t-item reveal">
+      <div class="t-dot"></div>
+      <div class="t-year">2024 — 2025</div>
+      <div class="t-role">Logistic Division Member</div>
+      <div class="t-org">Cakrawala Festival</div>
+      <div class="t-desc">Mengelola kebutuhan logistik acara, berkoordinasi dengan vendor, melacak inventaris, dan membantu penataan panggung serta booth.</div>
+    </div>
+
+    <div class="t-item reveal">
+      <div class="t-dot"></div>
+      <div class="t-year">2024</div>
+      <div class="t-role">Committee</div>
+      <div class="t-org">Campus Expo</div>
+      <div class="t-desc">Membantu promosi kampus ke calon mahasiswa, mewakili universitas di sesi booth, dan menyiapkan materi informasi.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-head reveal">
+    <div class="section-num mono">04 — Keahlian</div>
+    <h2 class="section-title">Yang saya <em>kuasai</em>.</h2>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-col reveal">
+      <h4>Soft Skills</h4>
+      <div class="tag-cloud">
+        <span class="tag">Leadership</span>
+        <span class="tag">Teamwork & Communication</span>
+        <span class="tag">Problem Solving</span>
+        <span class="tag">Attention to Detail</span>
+        <span class="tag">Time Management</span>
+      </div>
+    </div>
+    <div class="skill-col reveal">
+      <h4>Hard Skills</h4>
+      <div class="tag-cloud">
+        <span class="tag">Wireframing</span>
+        <span class="tag">Prototyping</span>
+        <span class="tag">UX Analysis</span>
+        <span class="tag">Data Visualization</span>
+        <span class="tag">Basic Front-End Dev</span>
+        <span class="tag">AI Prompt Engineering</span>
+      </div>
+    </div>
+    <div class="skill-col reveal">
+      <h4>Tools</h4>
+      <div class="tag-cloud">
+        <span class="tag">Figma</span>
+        <span class="tag">Tableau</span>
+        <span class="tag">DBeaver</span>
+        <span class="tag">GitHub</span>
+        <span class="tag">Visual Studio Code</span>
+        <span class="tag">Canva</span>
+        <span class="tag">Microsoft Office</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-head reveal">
+    <div class="section-num mono">05 — Pendidikan</div>
+    <h2 class="section-title">Latar <em>akademik</em>.</h2>
+  </div>
+  <div class="edu-card reveal">
+    <div>
+      <h3>Cakrawala University — Jakarta Selatan</h3>
+      <p>
+        Bachelor's Degree, Sistem dan Teknologi Informasi (Semester 3). Mempelajari prinsip dasar
+        UI/UX, analisis UX aplikasi populer, proyek pengembangan fitur aplikasi, dan pengembangan
+        web client.
+      </p>
+    </div>
+    <div class="edu-badge mono">Sejak Sept 2024</div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-head reveal" style="text-align:center;">
+    <div class="section-num mono">06 — Kontak</div>
+  </div>
+  <div class="contact-big reveal">Tertarik berkolaborasi? <em>Mari mengobrol.</em></div>
+  <div class="contact-links reveal">
+    <a href="mailto:chalifachairunnisa652@gmail.com">chalifachairunnisa652@gmail.com</a>
+    <a href="tel:+6281574678977">+62 815-7467-8977</a>
+    <a href="https://linkedin.com/in/chalifachai" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://github.com/chalifa06" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</section>
+
+<footer class="mono">© 2026 CHALIFA CHAIRUNNISA — DIRANCANG DENGAN ALUR YANG SAMA UNTUK LAYAR & PANGGUNG</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, {threshold:0.15});
+  reveals.forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>
